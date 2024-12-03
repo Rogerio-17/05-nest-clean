@@ -20,7 +20,7 @@ export class PrismaAnswerMapper {
     return {
       id: answer.id.toValue(),
       authorId: answer.authorId.toValue(),
-      questionId: answer.authorId.toString(),
+      questionId: answer.questionId.toString(),
       content: answer.content,
       createdAt: answer.createdAt,
       updatedAt: answer.updatedAt,

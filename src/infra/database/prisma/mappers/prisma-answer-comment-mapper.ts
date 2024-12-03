@@ -12,7 +12,7 @@ export class PrismaAnswerCommentMapper {
             {
                 content: raw.content,
                 authorId: new UniqueEntityID(raw.authorId),
-                answerId: new UniqueEntityID(raw.authorId),
+                answerId: new UniqueEntityID(raw.answerId),
                 createdAt: raw.createdAt,
                 updatedAt: raw.updatedAt,
             },

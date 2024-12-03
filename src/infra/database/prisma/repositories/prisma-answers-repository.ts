@@ -43,7 +43,7 @@ export class PrismaAnswersRepository implements AnswersRepository {
 
   async create(answer: Answer): Promise<void> {
     const data = PrismaAnswerMapper.toPrisma(answer)
-
+    
     await this.prisma.answer.create({
       data,
     })
