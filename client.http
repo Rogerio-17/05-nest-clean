@@ -42,3 +42,14 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/questions
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+
+###
+
+# @name FetchRecentQuestions
+GET {{baseUrl}}/question/:id/answers
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+
