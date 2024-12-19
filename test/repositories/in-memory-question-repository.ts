@@ -9,7 +9,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
   constructor(
     private questionAttachmentsRepository: QuestionAttachmentsRepository,
-  ) {}
+  ) { }
 
   async findById(id: string) {
     const question = this.items.find(
@@ -46,11 +46,17 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
     this.items[itemIndex] = question
 
+    await this.questionAttachmentsRepository.createMany(question.attachments.getNewItems())
+
+    await this.questionAttachmentsRepository.deleteMany(question.attachments.getRemovedItems())
+
     DomainEvents.dispatchEventsForAggregate(question.id)
   }
 
   async create(question: Question) {
     this.items.push(question)
+
+    await this.questionAttachmentsRepository.createMany(question.attachments.getItems())
 
     DomainEvents.dispatchEventsForAggregate(question.id)
   }

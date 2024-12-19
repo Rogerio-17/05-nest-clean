@@ -6,8 +6,7 @@ import { PrismaQuestionAttachmentsMapper } from '../mappers/prisma-question-atta
 
 @Injectable()
 export class PrismaQuestionAttachmentsRepository
-  implements QuestionAttachmentsRepository
-{
+  implements QuestionAttachmentsRepository {
   constructor(
     private prisma: PrismaService
   ) { }
@@ -21,11 +20,38 @@ export class PrismaQuestionAttachmentsRepository
     return questionAttachments.map(PrismaQuestionAttachmentsMapper.toDomain)
   }
 
- async deleteManyByQuestionId(questionId: string): Promise<void> {
-  await this.prisma.attachment.deleteMany({
-    where: {
-      questionId,
-    },
-  })
+  async createMany(attachments: QuestionAttachment[]): Promise<void> {
+    if (attachments.length === 0) {
+      return
+    }
+
+    const data = PrismaQuestionAttachmentsMapper.toPrismaUpdateMany(attachments)
+
+    await this.prisma.attachment.updateMany(data)
+  }
+  async deleteMany(attachments: QuestionAttachment[]): Promise<void> {
+    if (attachments.length === 0) {
+      return
+    }
+
+    const attachmentIds = attachments.map(attachments => {
+      return attachments.id.toString()
+    })
+
+    await this.prisma.attachment.deleteMany({
+      where: {
+        id: {
+          in: attachmentIds
+        }
+      }
+    })
+  }
+
+  async deleteManyByQuestionId(questionId: string): Promise<void> {
+    await this.prisma.attachment.deleteMany({
+      where: {
+        questionId,
+      },
+    })
   }
 }
