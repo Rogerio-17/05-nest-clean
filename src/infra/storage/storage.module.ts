@@ -7,7 +7,7 @@ import { EnvModule } from "../env/env.module";
     imports: [EnvModule],
     providers: [
         {
-            provide: 'Uploader',
+            provide: Uploader,
             useClass: R2Storage
         }
     ],
