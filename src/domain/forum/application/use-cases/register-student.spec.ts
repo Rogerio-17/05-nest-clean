@@ -1,4 +1,3 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { RegisterStudentUseCase } from './register-student'
 import { InMemoryStudentsRepository } from 'test/repositories/in-memory-student-repository'
 import { FakeHasher } from 'test/cryptography/fake-haser'

@@ -4,7 +4,6 @@ import { FetchQuestionCommentsUseCase } from './fetch-question-comments'
 import { makeQuestionComment } from 'test/factories/make-question-comment'
 import { InMemoryStudentsRepository } from 'test/repositories/in-memory-student-repository'
 import { makeStudent } from 'test/factories/make-student'
-import { au } from 'vitest/dist/chunks/reporters.anwo7Y6a'
 
 let inMemoryStudentsRepository: InMemoryStudentsRepository
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
