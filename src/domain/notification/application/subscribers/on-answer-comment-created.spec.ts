@@ -12,11 +12,13 @@ import { waitFor } from 'test/utils/wait-for'
 import { makeAnswerComment } from 'test/factories/make-answer-comment'
 import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answers-comments-repository'
 import { OnAnswerCommentCreated } from './on-answer-comment-created'
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-student-repository'
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
 let sendNotificationUseCase: SendNotificationUseCase
 
 let sendNotificationExecuteSpy: MockInstance<
@@ -27,6 +29,7 @@ let sendNotificationExecuteSpy: MockInstance<
 
 describe('On Answer Comment Created', () => {
   beforeEach(() => {
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
@@ -38,7 +41,9 @@ describe('On Answer Comment Created', () => {
       inMemoryNotificationsRepository,
     )
 
-    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository()
+    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository(
+      inMemoryStudentsRepository
+    )
 
     sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute')
 

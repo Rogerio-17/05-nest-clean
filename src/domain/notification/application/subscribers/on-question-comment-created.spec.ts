@@ -12,11 +12,15 @@ import { OnQuestionCommentCreated } from './on-question-comment-created'
 import { makeQuestion } from 'test/factories/make-question'
 import { makeQuestionComment } from 'test/factories/make-question-comment'
 import { InMemoryQuestionCommentsRepository } from 'test/repositories/in-memory-question-comments-repository'
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-student-repository'
+import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
+let inMemoryStudentsRepository: InMemoryStudentsRepository
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
 let sendNotificationUseCase: SendNotificationUseCase
 
 let sendNotificationExecuteSpy: MockInstance<
@@ -27,10 +31,14 @@ let sendNotificationExecuteSpy: MockInstance<
 
 describe('On Question Comment Created', () => {
   beforeEach(() => {
+    inMemoryStudentsRepository = new InMemoryStudentsRepository()
+    inMemoryAttachmentsRepository= new InMemoryAttachmentsRepository()
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository
     )
     inMemoryNotificationsRepository = new InMemoryNotificationsRepository()
 
@@ -39,7 +47,9 @@ describe('On Question Comment Created', () => {
     )
 
     inMemoryQuestionCommentsRepository =
-      new InMemoryQuestionCommentsRepository()
+      new InMemoryQuestionCommentsRepository(
+        inMemoryStudentsRepository
+      )
 
     sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute')
 
