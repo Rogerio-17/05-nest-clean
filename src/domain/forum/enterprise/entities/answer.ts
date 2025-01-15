@@ -77,4 +77,4 @@ export class Answer extends AggregateRoot<AnswerProps> {
 
     return answer
   }
-}
+}   

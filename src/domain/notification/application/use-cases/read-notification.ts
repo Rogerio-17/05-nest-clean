@@ -3,6 +3,7 @@ import { Either, left, right } from '@/core/either'
 import { NotificationsRepository } from '../repositories/notification-repository'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-nout-found-errror'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
+import { Injectable } from '@nestjs/common'
 
 interface ReadNotificationUseCaseRequest {
   recipientId: string
@@ -16,6 +17,7 @@ type ReadNotificationUseCaseResponse = Either<
   }
 >
 
+@Injectable()
 export class ReadNotificationUseCase {
   constructor(private notificationRepository: NotificationsRepository) {}
 
