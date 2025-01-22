@@ -18,8 +18,10 @@ import { AttachmentsRepository } from '@/domain/forum/application/repositories/a
 import { PrismaAttachmentsRepository } from './prisma/repositories/prisma-attachments-repository'
 import { NotificationsRepository } from '@/domain/notification/application/repositories/notification-repository'
 import { PrismaNotificationRepository } from './prisma/repositories/prisma-notifcation-repository'
+import { CacheModule } from '../cache/cache.module'
 
 @Module({
+  imports: [CacheModule],
   providers: [
     PrismaService,
     {
